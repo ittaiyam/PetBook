@@ -1,1 +1,5 @@
 .idea
+node_modules
+certificates
+npm-debug.log
+petbook.log
