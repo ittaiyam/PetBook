@@ -9,7 +9,7 @@ function testSuite(dao) {
             it('should create a new user.', function(done){
                 var data = {
                     name: 'James Joyce',
-                    email: 'jjoyce@gmail.com'
+                    email: 'j.joyce@gmail.com'
                 };
                 var earlier = new Date();
                 dao.user.extendedCreate(data, onCreateDone, false);
