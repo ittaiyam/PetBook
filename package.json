@@ -4,7 +4,6 @@
   "description": "README.md",
   "main": "server.js",
   "dependencies": {
-    "bcrypt": "~0.8.5",
     "body-parser": "~1.13.1",
     "entities": "~1.1.1",
     "express": "~4.13.0",
