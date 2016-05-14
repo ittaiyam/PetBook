@@ -9,7 +9,8 @@ function buildDAO(){
     mongoose.connect('mongodb://' + process.env.MONGO_SERVER + '/' + process.env.MONGO_DB);
 
     var instance = {};
-    //require('./user')(instance);
+    require('./user')(instance);
+    require('./token')(instance);
     //require('./post')(instance);
     //require('./comment')(instance);
     //require('./like')(instance);
