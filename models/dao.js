@@ -11,10 +11,8 @@ function buildDAO(){
     var instance = {};
     require('./user')(instance);
     require('./token')(instance);
-    //require('./post')(instance);
-    //require('./comment')(instance);
-    //require('./like')(instance);
-    //require('./activity')(instance);
+    require('./pet')(instance);
+    require('./message')(instance);
 
     instance.connection = mongoose.connection;
     instance.connection.on('error', logger.error.bind(logger, 'connection error:'));
