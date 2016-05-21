@@ -15,7 +15,9 @@ function appendModel(dao) {
         petReference: {type: mongoose.Schema.Types.ObjectId, ref: 'Pet'},
         date: {type: Date, default: Date.now},
         to: {type: mongoose.Schema.Types.ObjectId, ref: 'User'},
-        from: {type: mongoose.Schema.Types.ObjectId, ref: 'User'}
+        from: {type: mongoose.Schema.Types.ObjectId, ref: 'User'},
+        previous: {type: mongoose.Schema.Types.ObjectId, ref: 'message'},
+        next: {type: mongoose.Schema.Types.ObjectId, ref: 'message'}
     });
 
     dao.message = mongoose.model('Message', messageSchema);

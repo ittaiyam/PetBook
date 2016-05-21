@@ -28,6 +28,7 @@ function appendModel(dao) {
      * @param sendBackTokenValue Determines what to send back on done.
      */
     function extendedCreate(data, done, sendBackTokenValue) {
+        done = done || function(){};
         sendBackTokenValue = sendBackTokenValue || false;
         var user = new dao.user();
         var token = new dao.token();
