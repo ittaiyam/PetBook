@@ -31,19 +31,54 @@ function apiController(dao) {
 
         function onPetCreated(error, result) {
             if (error || !result) {
-                res.status('401').json({msg: 'Bad request. Check for missing parameters.'});
+                res.status('400').json({msg: 'Bad request. Check for missing parameters.'});
             } else {
-                res.json(result)
+                res.json(result);
             }
         }
     }
 
     function onDeletePet(req, res) {
-        // TODO miri
+        // ????
+        var data = req.body;
+        var petId = req.body.pet;
+        var user = req.user;
+
+        dao.pet.find({_id: petId, user: user._id}).remove(data, onPetDeleted);
+
+        function onPetDeleted(error, result){
+            if (error || !result) {
+                res.status('400').json({msg: 'Bad request. Check for missing parameters.'});
+            } else {
+                res.json(result);
+            }
+        }
     }
 
     function onEditPet(req, res) {
         // TODO miri
+        var props = ['name', 'description', 'age', 'species', 'type', 'gender'];
+        var data = {};
+        var petId = req.body.pet;
+        var user = req.user;
+
+        props.forEach(function (prop) {
+            if (req.body[prop]) {
+                data[prop] = req.body[prop];
+            }
+        });
+
+         // not sure if correct - the data part.
+        dao.pet.findOneAndUpdate({_id: petId,  user: user._id},data /* ?? */, {returnNewDocument: true},onUpdatePet);
+
+        function onUpdatePet(error, result){
+            if (error || !result) {
+                res.status('400').json({msg: 'Bad request. Check for missing parameters.'});
+            } else {
+                res.json(result);
+            }
+        }
+
     }
 
     function onGetMessages(req, res) {
