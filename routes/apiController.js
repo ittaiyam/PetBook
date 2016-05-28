@@ -83,6 +83,8 @@ function apiController(dao) {
 
     function onGetMessages(req, res) {
         // TODO miri
+
+
     }
 
     function onSendMessage(req, res) {
