@@ -13,8 +13,8 @@ before(function (done) {
     });
 });
 
-describe('Data Access Object Unit Testing...', function(){
-    require('./routes.part.api')(dao);
+describe('Routes Unit Testing...', function(){
+    require('./routes.part.api')(app);
 });
 
 after(function (done) {

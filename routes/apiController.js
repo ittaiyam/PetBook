@@ -31,7 +31,7 @@ function apiController(dao) {
 
         function onPetCreated(error, result) {
             if (error || !result) {
-                res.status('400').json({msg: 'Bad request. Check for missing parameters.'});
+                res.status(400).json({msg: 'Bad request. Check for missing parameters.'});
             } else {
                 res.json(result);
             }
@@ -39,16 +39,15 @@ function apiController(dao) {
     }
 
     function onDeletePet(req, res) {
-        // ????
         var data = req.body;
         var petId = req.body.pet;
         var user = req.user;
 
         dao.pet.find({_id: petId, user: user._id}).remove(data, onPetDeleted);
 
-        function onPetDeleted(error, result){
+        function onPetDeleted(error, result) {
             if (error || !result) {
-                res.status('400').json({msg: 'Bad request. Check for missing parameters.'});
+                res.status(400).json({msg: 'Bad request. Check for missing parameters.'});
             } else {
                 res.json(result);
             }
@@ -56,10 +55,9 @@ function apiController(dao) {
     }
 
     function onEditPet(req, res) {
-        // TODO miri
-        var props = ['name', 'description', 'age', 'species', 'type', 'gender'];
+        var props = ['name', 'description', 'age', 'species', 'type', 'gender', 'adopted'];
         var data = {};
-        var petId = req.body.pet;
+        var petId = req.body.petId;
         var user = req.user;
 
         props.forEach(function (prop) {
@@ -68,12 +66,13 @@ function apiController(dao) {
             }
         });
 
-         // not sure if correct - the data part.
-        dao.pet.findOneAndUpdate({_id: petId,  user: user._id},data /* ?? */, {returnNewDocument: true},onUpdatePet);
+        dao.pet.findOneAndUpdate({_id: petId, user: user._id}, data, {new: true}, onUpdatePet);
 
-        function onUpdatePet(error, result){
-            if (error || !result) {
-                res.status('400').json({msg: 'Bad request. Check for missing parameters.'});
+        function onUpdatePet(error, result) {
+            if (error) {
+                res.status(400).json({msg: 'Bad request. Check for parameters\' validity.'});
+            } else if (!result) {
+                res.status(403).json({msg: 'Forbidden action. You can\'t do that!'});
             } else {
                 res.json(result);
             }
